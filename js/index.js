@@ -5,11 +5,16 @@ var $objPub ={
 	$loginController:"LoginController.php",	//登录控制器
 	$logoutController:"LogoutController.php",//注销控制器
 	$addTipController:"AddTipController.php",//添加提醒控制器
+	$registController:"RegistController.php",//注册控制器
 };
-//登录对象
+
+//用户对象
 var $login = {
-	$userName:$("#loginName"),			//获取用户名
-	$passWd:$("#loginPw"),				//获取密码
+	$userName:$("#loginName"),			//获取登录用户名
+	$passWd:$("#loginPw"),				//获取登录密码
+	$regEmail:$("#regEmail"),				//获取注册邮箱
+	$regUserName:$("#regUsername"),		//获取注册用户名
+	$regPassword:$("#regPassword"),		//获取注册密码
 	//向后台发出登录请求
 	$sendLoginInfo:function(){
 		//调用校验对象，校验元素存在
@@ -43,6 +48,24 @@ var $login = {
 		};
 		$sendMsg.$sendAjax($type,$url,$msg,$func);
 	},
+	//向后台发出注册请求
+	$sendRegistInfo:function(){
+		//调用校验对象，校验元素存在
+		$flag=$checkObj.$isSet(new Array(this.$regEmail.val(),this.$regUserName.val(),this.$regPassword.val()));
+		if($flag){				//如果元素存在
+			$type="POST";			//请求类型
+			$url=$objPub.$baseUrl+$objPub.$registController;		//请求路径
+			$msg = "regEmail="+this.$regEmail.val()+"&"+"regUserName="+this.$regUserName.val()+"&"+"regPassword="+this.$regPassword.val();		//请求数据
+			$func=function($date){			//回调函数
+				$sendMsg.$print($date);
+			}
+			$sendMsg.$sendAjax($type,$url,$msg,$func);			//发送请求
+		}else{				//如果元素不存在或者为空
+			$sendMsg.$print("注册的邮箱/用户名/密码不能为空！");		//控制台输出
+		}
+
+
+	},
 	//判断是否已经登录
 	$isLogin:function(){
 		$flag =$("#session").val();						//获取会话信息
@@ -51,9 +74,10 @@ var $login = {
 		}else{							//如果没有登录
 			return false;	//返回为假
 		}
-	}
+	},
 };
 
+//添加提醒对象
 var $tips ={
 	$datetime:$("#tipDate"),			//获取提示日期元素
 	$tipContent:$("#tipMsg"),			//获取提示内容元素
@@ -77,13 +101,10 @@ var $tips ={
 			//向后台发送一条请求
 			$type = "POST";			//请求类型
 			$url = $objPub.$baseUrl+$objPub.$addTipController;		//请求路径
-			$msg = "datetime="+this.$datetime.val()+"&"+"tipContent="+this.$tipContent.val();		//请求数据
+			$msg = "datetime="+this.$datetime.val()+"&"+"tipContent="+this.$tipContent.val();	//请求数据
 			$func = function($data){				//回调函数
-				if($data==3000){
-					//插入成功
-					$('#addTipModal').modal('hide');		//隐藏记录模块框
-				}else{
-					$sendM.$print("插入记录失败");
+				if($data==0){
+					$sendMsg.$print("插入记录失败");
 				}
 				window.location.href="index.php";				//刷新页面
 			};
@@ -112,6 +133,7 @@ var $sendMsg ={
 		});
 	},
 };
+
 //校验对象
 var $checkObj={
 	//校验对象不为空
@@ -126,4 +148,3 @@ var $checkObj={
 		return $flag?true:false;	//根据旗帜返回布尔值
 	}
 };
-$("<div />").appendTo("#bodyShow");

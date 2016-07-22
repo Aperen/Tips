@@ -1,14 +1,16 @@
 <?php
+/*
+ * 创建人：季俊潇
+ * 创建日期：2016年7月21日
+ * 修改日期：2016年7月22日 11:06
+ * 描述：首页展示
+ */
 session_start();				//开启会话
-echo md5("yanyu");
-$con=mysqli_connect("localhost","root","","tips");
-if(!$con){			//如果连接失败
-	echo "数据库连接失败：".mysqli_connect_error;		//输出连接错误信息
-}
+require ("./common/func_db.php");			//引入数据库类
 if(isset($_SESSION["userName"])){
-	mysqli_query($con,"SET NAMES UTF8");		//设置数据库编码
+	$con=Db::dbConnect();			//数据库连接
 	$sql="SELECT * FROM tips  WHERE author='{$_SESSION["userName"]}' ORDER BY DATE DESC Limit 0,5";
-	$ret=mysqli_query($con,$sql);
+	$ret=Db::dbQueryAll($con,$sql);
 	$flag=false;
 }else{
 	$flag=true;
@@ -58,6 +60,7 @@ if(isset($_SESSION["userName"])){
 									echo "<li><a onclick='\$login.\$sendLogoutInfo();'>注销</a></li>";
 								}else{
 									echo "<li><a data-toggle='modal' data-target='#loginModal'>登录</a></li>";
+									echo "<li><a data-toggle='modal' data-target='#registModal'>注册</a></li>";
 								}
 							?>
 							
@@ -83,11 +86,11 @@ if(isset($_SESSION["userName"])){
 	<div class="container">
 		<?php 
 			if(!$flag){
-				while($row=mysqli_fetch_assoc($ret)){
+				for($i=0;$i<count($ret);$i++){
 					echo "<div class='row box'>";
 					echo 	"<div class='col-lg-12'>";
-					echo 		"<h4>提醒日期:{$row['date']}</h4>";
-					echo		"<p>提醒内容:".mb_substr($row['content'],0,30)."</p>";
+					echo 		"<h4>提醒日期:{$ret[$i]['date']}</h4>";
+					echo		"<p>提醒内容:".mb_substr($ret[$i]['content'],0,30)."</p>";
 					echo	"</div>";
 					echo "</div>";
 					echo "<br /><br />";
@@ -131,7 +134,40 @@ if(isset($_SESSION["userName"])){
 		</div>
 	  </div>
 	</div>
-	
+
+	<!--注册模态框-->
+	<div class="modal fade" id="registModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">欢迎您注册成为本网站用户</h4>
+			</div>
+			<div class="modal-body">
+				<!--注册表单内容-->
+				<form>
+					<div class="form-group">
+						<label for="InputEmail1">邮箱地址</label>
+						<input type="email" class="form-control" id="regEmail" placeholder="邮箱，例如：zhansan@163.com">
+					</div>
+					<div class="form-group">
+						<label for="InputUsername">用户名</label>
+						<input type="text" class="form-control" id="regUsername" placeholder="用户名:支持中英文字符，20个以内">
+					</div>
+					<div class="form-group">
+						<label for="InputPassword">密码</label>
+						<input type="password" class="form-control" id="regPassword" placeholder="密码，请设置高强度密码">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">再考虑考虑</button>
+				<button type="button" class="btn btn-primary" onclick="$login.$sendRegistInfo();">让我们愉快的玩耍吧</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
 	<!--记录模态框-->
 	<div class="modal fade" id="addTipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 	  <div class="modal-dialog" role="document">
