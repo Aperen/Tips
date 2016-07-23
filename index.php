@@ -15,6 +15,7 @@ if(isset($_SESSION["userName"])){
 }else{
 	$flag=true;
 }
+
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -32,6 +33,7 @@ if(isset($_SESSION["userName"])){
 		<div class="row">
 			<!--隐藏域记录会话信息-->
 			<input type="hidden" id="session" value="<?php echo isset($_SESSION["userName"])?1:0; ?>">
+			<input type="hidden" id="verificationEmail" value="<?php echo isset($_SESSION["regUserName"])?0:1; ?>">
 			<div class="col-lg-12">
 				<nav class="navbar navbar-default">
 				  <div class="container-fluid">
@@ -57,7 +59,7 @@ if(isset($_SESSION["userName"])){
 						  <!-- 这里下拉列表框的选项 -->
 							<?php 
 								if(isset($_SESSION['userName'])){
-									echo "<li><a onclick='\$login.\$sendLogoutInfo();'>注销</a></li>";
+									echo "<li><a onclick='\$login.\$sendLogoutInfo();'>注销(".$_SESSION["userName"].")</a></li>";
 								}else{
 									echo "<li><a data-toggle='modal' data-target='#loginModal'>登录</a></li>";
 									echo "<li><a data-toggle='modal' data-target='#registModal'>注册</a></li>";
@@ -85,15 +87,17 @@ if(isset($_SESSION["userName"])){
 	<!--主体容器-->
 	<div class="container">
 		<?php 
-			if(!$flag){
-				for($i=0;$i<count($ret);$i++){
-					echo "<div class='row box'>";
-					echo 	"<div class='col-lg-12'>";
-					echo 		"<h4>提醒日期:{$ret[$i]['date']}</h4>";
-					echo		"<p>提醒内容:".mb_substr($ret[$i]['content'],0,30)."</p>";
-					echo	"</div>";
-					echo "</div>";
-					echo "<br /><br />";
+			if(!$flag){				//如果已经登录
+				for($i=0;$i<count($ret);$i++){		//遍历记录
+					if($ret[$i]['id']){			//如果存在记录
+						echo "<div class='row box'>";
+						echo 	"<div class='col-lg-12'>";
+						echo 		"<h4>提醒日期:{$ret[$i]['date']}</h4>";
+						echo		"<p>提醒内容:".mb_substr($ret[$i]['content'],0,30)."</p>";
+						echo	"</div>";
+						echo "</div>";
+						echo "<br /><br />";
+					}
 				}
 			}else{
 				echo "<div class='row box'>";
@@ -133,6 +137,26 @@ if(isset($_SESSION["userName"])){
 		  </div>
 		</div>
 	  </div>
+	</div>
+
+	<!--邮箱验证模态框-->
+	<div class="modal fade" id="emailVerificationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">欢迎您注册成为本网站用户</h4>
+				</div>
+				<div class="modal-body">
+					<p>接下来我们来完成最后一步工作，验证之前填写的邮箱吧！</p>
+					<br>
+					<p id="info"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="$login.$isVerificationEmail();">验证邮箱</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!--注册模态框-->

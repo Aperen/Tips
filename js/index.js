@@ -6,6 +6,7 @@ var $objPub ={
 	$logoutController:"LogoutController.php",//注销控制器
 	$addTipController:"AddTipController.php",//添加提醒控制器
 	$registController:"RegistController.php",//注册控制器
+	$getSessionController:"GetSessionController.php",	//获取Session
 };
 
 //用户对象
@@ -29,7 +30,7 @@ var $login = {
 					$("#danger").text("用户名和密码不正确！");
 				}
 				window.location.href="index.php";				//刷新页面
-			}
+			},
 			$sendMsg.$sendAjax("POST",$url,$msg,$func);			//调用消息对象发送 Ajax 请求
 		}else{			//用户名和密码为空
 			$("#danger").text("用户名和密码不能为空！");
@@ -56,15 +57,31 @@ var $login = {
 			$type="POST";			//请求类型
 			$url=$objPub.$baseUrl+$objPub.$registController;		//请求路径
 			$msg = "regEmail="+this.$regEmail.val()+"&"+"regUserName="+this.$regUserName.val()+"&"+"regPassword="+this.$regPassword.val();		//请求数据
-			$func=function($date){			//回调函数
-				$sendMsg.$print($date);
-			}
+			$func =function(){											//请求的回调函数
+				$("#registModal").modal('hide');					//注册模态框隐藏
+				$("#emailVerificationModal").modal('show');	//验证邮箱模态框显现
+			},
 			$sendMsg.$sendAjax($type,$url,$msg,$func);			//发送请求
 		}else{				//如果元素不存在或者为空
 			$sendMsg.$print("注册的邮箱/用户名/密码不能为空！");		//控制台输出
 		}
 
 
+	},
+	//判断验证邮箱是否验证成功
+	$isVerificationEmail:function(){
+		$func=function($data){
+			$flag=$data;
+			if($flag==false){					//如果验证成功
+				$("#info").text("验证成功，3秒之后返回首页");
+				setTimeout(function(){						//设置3秒延时
+					window.location.href="index.php";	//返回首页
+				},3000);
+			}else{							//如果验证失败
+				$("#info").text("验证失败，网络可能存在一定延迟");
+			}
+		};
+		$sendMsg.$sendAjax('POST',$objPub.$baseUrl+$objPub.$getSessionController,'',$func);
 	},
 	//判断是否已经登录
 	$isLogin:function(){
@@ -129,7 +146,7 @@ var $sendMsg ={
 			url:$url,									//请求路径
 			dataType:'json',				//数据类型
 			data:$msg,			//请求数据
-			success:$func					//成功后的回调函数
+			success:$func,					//成功后的回调函数
 		});
 	},
 };
