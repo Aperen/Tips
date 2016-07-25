@@ -57,9 +57,15 @@ var $login = {
 			$type="POST";			//请求类型
 			$url=$objPub.$baseUrl+$objPub.$registController;		//请求路径
 			$msg = "regEmail="+this.$regEmail.val()+"&"+"regUserName="+this.$regUserName.val()+"&"+"regPassword="+this.$regPassword.val();		//请求数据
-			$func =function(){											//请求的回调函数
-				$("#registModal").modal('hide');					//注册模态框隐藏
-				$("#emailVerificationModal").modal('show');	//验证邮箱模态框显现
+			$func =function($date){											//请求的回调函数
+				$errInfo=$sendMsg.$sendError($date);
+				if($errInfo.$errorNo==1005){
+					$("#registModal").modal('hide');					//注册模态框隐藏
+					$("#emailVerificationModal").modal('show');	//验证邮箱模态框显现
+				}else{
+					$("#errorInfo").text("错误信息("+$errInfo.$errorNo+":"+$errInfo.$errorInfo+")");	//输出错误信息
+				}
+
 			},
 			$sendMsg.$sendAjax($type,$url,$msg,$func);			//发送请求
 		}else{				//如果元素不存在或者为空
@@ -149,6 +155,29 @@ var $sendMsg ={
 			success:$func,					//成功后的回调函数
 		});
 	},
+	//发送错误信息
+	$sendError : function ($errno) {
+		$errInfo={};
+		$errInfo.$errorNo=$errno;
+		switch($errno){
+			case 1001:
+				$errInfo.$errorInfo="用户名不能为空";
+				break;
+			case 1002:
+				$errInfo.$errorInfo="密码不能为空";
+				break;
+			case 1003:
+				$errInfo.$errorInfo="邮箱不能为空";
+				break;
+			case 1004:
+				$errInfo.$errorInfo="邮箱已经被注册";
+				break;
+			case 1005:
+				$errInfo.$errorInfo="等待邮箱验证";
+				break;
+		}
+		return $errInfo;
+	}
 };
 
 //校验对象

@@ -182,6 +182,7 @@ if(isset($_SESSION["userName"])){
 						<label for="InputPassword">密码</label>
 						<input type="password" class="form-control" id="regPassword" placeholder="密码，请设置高强度密码">
 					</div>
+					<p id="errorInfo"></p>
 				</form>
 			</div>
 			<div class="modal-footer">

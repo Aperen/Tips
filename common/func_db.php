@@ -10,7 +10,7 @@ class Db{
     private static $dbName="tips";                 //数据库名
     private static $dbUser="root";                 //数据库用户
     private static $dbPw="";                       //数据库密码
-    private static $dbPort="3306";                 //数据库端口，SAE：3307
+    private static $dbPort="3306";                 //数据库端口
     //数据库连接
     public static function dbConnect(){
         $con = mysqli_connect(Db::$dbHost,Db::$dbUser,DB::$dbPw,Db::$dbName,Db::$dbPort);     //连接数据库
