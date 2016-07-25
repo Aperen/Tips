@@ -175,6 +175,11 @@ var $sendMsg ={
 			case 1005:
 				$errInfo.$errorInfo="等待邮箱验证";
 				break;
+			case 1006:
+				$errInfo.$errorInfo="用户名已经被注册";
+				break;
+			default:
+				$errInfo.$errorInfo="未知错误，请联系网站管理员";
 		}
 		return $errInfo;
 	}
