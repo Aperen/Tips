@@ -182,7 +182,7 @@ if(isset($_SESSION["userName"])){
 						<label for="InputPassword">密码</label>
 						<input type="password" class="form-control" id="regPassword" placeholder="密码，请设置高强度密码">
 					</div>
-					<p id="errorInfo"></p>
+					<p id="errorInfo"></p>				<!--输出错误信息-->
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -264,7 +264,7 @@ if(isset($_SESSION["userName"])){
 	  </div>
 	</div>
 	
-	<!---- JS IMPORT ------->
+	<!---- 引入 JS 框架------->
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/index.js"></script>
