@@ -15,7 +15,6 @@ if(isset($_SESSION["userName"])){
 }else{
 	$flag=true;
 }
-
 ?>
 <!doctype html>
 <html lang="zh-CN">

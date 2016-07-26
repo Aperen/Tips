@@ -6,7 +6,7 @@
  * Time: 15:22
  */
 session_start();            //开启会话
-//error_reporting(0);                     //屏蔽掉邮件发送之后的警告信息
+error_reporting(0);                     //屏蔽掉邮件发送之后的警告信息
 require "../common/email.class.php";        //引入发送邮件类
 require "../common/func_db.php";            //引入数据库操作类
 //获取前台的传参
@@ -35,7 +35,11 @@ if(!isset($userName)){           // 如果用户名为空
             if(mysqli_affected_rows($con)>0){
                 echo "1004";        //该邮箱已被注册
             }else{
-                $_SESSION['regUserName']=$userName;     //将用户名写入会话
+                //将用户名写入临时表
+                $table="templates";
+                $k=Array("key","value");
+                $v=Array("regName",$userName);
+                Db::dbInsertOne($table,$k,$v);
                 //发送验证电子邮件
                 $x=base64_encode($userName);
                 $y=base64_encode($email);

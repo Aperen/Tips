@@ -17,6 +17,7 @@ var $login = {
 	$regUserName:$("#regUsername"),		//获取注册用户名
 	$regPassword:$("#regPassword"),		//获取注册密码
 	//向后台发出登录请求
+	//向后台发送登录请求
 	$sendLoginInfo:function(){
 		//调用校验对象，校验元素存在
 		$flag=$checkObj.$isSet(new Array(this.$userName.val(),this.$passWd.val()));		
@@ -24,13 +25,13 @@ var $login = {
 			$url = $objPub.$baseUrl+$objPub.$loginController;				//请求路径
 			$msg = "userName="+this.$userName.val()+"&"+"passWord="+this.$passWd.val();		//请求数据
 			$func =function($data){											//请求的回调函数
-				if($data=1000){
+				if($data==1000){
 					$('#loginModal').modal('hide');
+					window.location.href="index.php";				//刷新页面
 				}else{		//登录失败
 					$("#danger").text("用户名和密码不正确！");
 				}
-				window.location.href="index.php";				//刷新页面
-			},
+			};
 			$sendMsg.$sendAjax("POST",$url,$msg,$func);			//调用消息对象发送 Ajax 请求
 		}else{			//用户名和密码为空
 			$("#danger").text("用户名和密码不能为空！");

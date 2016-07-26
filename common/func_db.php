@@ -65,6 +65,13 @@ class Db{
         $ret=mysqli_query($con,$sql);               //执行插入语句
         return $ret;
     }
+    //根据ID删除一条记录
+    public static function dbDelete($table,$id){
+        $con = self::dbConnect();               //数据库连接
+        $sql= "DELETE FROM {$table} WHERE `id`={$id}";      //定义语句
+        $ret = mysqli_query($con,$sql);         //执行语句
+        return $ret;            //返回结果
+    }
     //测试方法
     public static function dbTest(){
         //测试返回一条记录
@@ -77,6 +84,11 @@ class Db{
         /*$k=Array("content","date","author");
         $v=Array("一次次的重构，相信会做的更好！","2016-07-23 12:00:00:00","admin");
         return self::dbInsertOne("tips",$k,$v);*/
+
+        //测试删除一条记录
+/*        $table="templates";
+        $id=2;
+        $ret=self::dbDelete($table,$id);*/
     }
 }
 
