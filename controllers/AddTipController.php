@@ -4,6 +4,7 @@ require ("../common/func_db.php");			//引入数据库类
 //接受传参
 $datetime = $_POST['datetime'];
 $tipContent = $_POST['tipContent'];
+$isEmail =$_POST['isEmail'];
 //对传参强校验
 if(!$datetime){
 	echo "日期不能为空！";
@@ -26,5 +27,14 @@ $t="tips";			//插入表名
 $k=Array("content","date","author");//插入字段
 $v=Array($tipContent,$d,$author);	//插入字段值
 $ret=Db::dbInsertOne($t,$k,$v);		//插入数据库
-echo $ret;
+//如果提醒推送邮件
+if($isEmail){
+	$con=Db::dbConnect();
+	$sql="SELECT * FROM user WHERE username='{$author}'";
+	$ret1=Db::dbQueryOne($con,$sql);
+	$t="task";
+	$k=Array("user_id","exce_time","content");
+	$v=Array($ret1['id'],$datetime,$tipContent);
+	$ret=Db::dbInsertOne($t,$k,$v);
+}
 ?>

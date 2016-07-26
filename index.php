@@ -15,6 +15,7 @@ if(isset($_SESSION["userName"])){
 }else{
 	$flag=true;
 }
+
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -89,10 +90,11 @@ if(isset($_SESSION["userName"])){
 			if(!$flag){				//如果已经登录
 				for($i=0;$i<count($ret);$i++){		//遍历记录
 					if($ret[$i]['id']){			//如果存在记录
+						$content=$ret[$i]['content'];
 						echo "<div class='row box'>";
 						echo 	"<div class='col-lg-12'>";
 						echo 		"<h4>提醒日期:{$ret[$i]['date']}</h4>";
-						echo		"<p>提醒内容:".mb_substr($ret[$i]['content'],0,30)."</p>";
+						echo		"<p>提醒内容:".$ret[$i]['content']."</p>";
 						echo	"</div>";
 						echo "</div>";
 						echo "<br /><br />";
@@ -138,25 +140,6 @@ if(isset($_SESSION["userName"])){
 	  </div>
 	</div>
 
-	<!--邮箱验证模态框-->
-	<div class="modal fade" id="emailVerificationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">欢迎您注册成为本网站用户</h4>
-				</div>
-				<div class="modal-body">
-					<p>接下来我们来完成最后一步工作，验证之前填写的邮箱吧！</p>
-					<br>
-					<p id="info"></p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onclick="$login.$isVerificationEmail();">验证邮箱</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!--注册模态框-->
 	<div class="modal fade" id="registModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -210,6 +193,11 @@ if(isset($_SESSION["userName"])){
 				<label for="message-text" class="control-label">提示内容:</label>
 				<textarea class="form-control" id="tipMsg"></textarea>
 			  </div>
+				<div class="form-group">
+					<label>
+						<input type="checkbox" id="is_email" onclick="$tips.$isEmail=this.checked"> 是否邮件推送
+					</label>
+				</div>
 			</form>
 		  </div>
 		  <div class="modal-footer">
@@ -251,10 +239,11 @@ if(isset($_SESSION["userName"])){
 		  </div>
 		  <div class="modal-body">
 			<p>作者:苏近之</p>
+			<p>系统版本:V0.3</p>
 			<p>GitHub:www.iyii.vip</p>
 			<p>邮箱:xiaotingyizhan@163.com</p>
 			<p>手机:18969143101</p>
-			<p>谨以此献给我亲爱的言与！</p>
+			<p>谨以此献给我挚爱的言与！</p>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
@@ -266,6 +255,7 @@ if(isset($_SESSION["userName"])){
 	<!---- 引入 JS 框架------->
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./layer/layer.js"></script>
 <script type="text/javascript" src="./js/index.js"></script>
 </body>
 </html>

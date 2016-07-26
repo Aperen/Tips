@@ -16,7 +16,7 @@ var $login = {
 	$regEmail:$("#regEmail"),				//获取注册邮箱
 	$regUserName:$("#regUsername"),		//获取注册用户名
 	$regPassword:$("#regPassword"),		//获取注册密码
-	//向后台发出登录请求
+
 	//向后台发送登录请求
 	$sendLoginInfo:function(){
 		//调用校验对象，校验元素存在
@@ -62,7 +62,6 @@ var $login = {
 				$errInfo=$sendMsg.$sendError($date);
 				if($errInfo.$errorNo==1005){
 					$("#registModal").modal('hide');					//注册模态框隐藏
-					$("#emailVerificationModal").modal('show');	//验证邮箱模态框显现
 				}else{
 					$("#errorInfo").text("错误信息("+$errInfo.$errorNo+":"+$errInfo.$errorInfo+")");	//输出错误信息
 				}
@@ -105,6 +104,8 @@ var $login = {
 var $tips ={
 	$datetime:$("#tipDate"),			//获取提示日期元素
 	$tipContent:$("#tipMsg"),			//获取提示内容元素
+	$isEmail:"",			//获取是否邮件推送元素
+
 	//根据登录状态弹出模态框
 	$byLoginStatusByModal:function(){
 		//判断是否已经登录
@@ -125,7 +126,7 @@ var $tips ={
 			//向后台发送一条请求
 			$type = "POST";			//请求类型
 			$url = $objPub.$baseUrl+$objPub.$addTipController;		//请求路径
-			$msg = "datetime="+this.$datetime.val()+"&"+"tipContent="+this.$tipContent.val();	//请求数据
+			$msg = "datetime="+this.$datetime.val()+"&"+"tipContent="+this.$tipContent.val()+"&"+"isEmail="+this.$isEmail;	//请求数据
 			$func = function($data){				//回调函数
 				if($data==0){
 					$sendMsg.$print("插入记录失败");
@@ -200,3 +201,4 @@ var $checkObj={
 		return $flag?true:false;	//根据旗帜返回布尔值
 	}
 };
+

@@ -72,6 +72,12 @@ class Db{
         $ret = mysqli_query($con,$sql);         //执行语句
         return $ret;            //返回结果
     }
+    //根据ID更新一条记录
+    public static function dbUpdate($sql){
+        $con = self::dbConnect();       //连接数据库
+        $ret = mysqli_query($con,$sql);       //执行SQL语句
+        return mysqli_affected_rows($con);      //返回受影响记录条数
+    }
     //测试方法
     public static function dbTest(){
         //测试返回一条记录
@@ -89,6 +95,10 @@ class Db{
 /*        $table="templates";
         $id=2;
         $ret=self::dbDelete($table,$id);*/
+
+        //测试更新一条记录
+/*        $sql="UPDATE `tips`.`task` SET `content` = '你好吗，世界！' WHERE `task`.`id` = 1;";
+        return self::dbUpdate($sql);*/
     }
 }
 
