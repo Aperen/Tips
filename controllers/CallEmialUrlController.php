@@ -8,7 +8,7 @@
 session_start();            //开启会话
 require "../common/func_db.php";        //引入数据库类
 $con=Db::dbConnect();           //连接数据库
-$sql="SELECT id,value FROM templates WHERE `value`='".base64_decode($_GET['x'])."'";    //定义语句
+$sql="SELECT id,value FROM templates WHERE `value`='".base64_decode($_GET['y'])."'";    //定义语句
 $ret=Db::dbQueryOne($con,$sql);         //执行SQL
 //路径信息与会话信息进行校对
 if(mysqli_affected_rows($con)>0){       //如果临时表中有该用户信息存在
@@ -27,5 +27,7 @@ if(mysqli_affected_rows($con)>0){       //如果临时表中有该用户信息�
         echo "新增用户失败，请联系网站管理员！";       //输出错误信息
     }
 }else{          //访问路径遭到篡改，与会话信息不一致
+    var_dump($ret);
+    echo base64_decode($_GET['y']);
     echo "非法的访问路径";
 }

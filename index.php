@@ -158,7 +158,7 @@ if(isset($_SESSION["userName"])){
 					</div>
 					<div class="form-group">
 						<label for="InputUsername">用户名</label>
-						<input type="text" class="form-control" id="regUsername" placeholder="用户名:支持中英文字符，20个以内">
+						<input type="text" class="form-control" id="regUsername" placeholder="用户名:支持英文字符，20个字符以内">
 					</div>
 					<div class="form-group">
 						<label for="InputPassword">密码</label>
@@ -239,7 +239,7 @@ if(isset($_SESSION["userName"])){
 		  </div>
 		  <div class="modal-body">
 			<p>作者:苏近之</p>
-			<p>系统版本:V0.4.2</p>
+			<p>系统版本:V0.4.3</p>
 			<p>GitHub:www.iyii.vip</p>
 			<p>邮箱:xiaotingyizhan@163.com</p>
 			<p>手机:18969143101</p>

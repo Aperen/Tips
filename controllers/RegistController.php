@@ -38,7 +38,7 @@ if(!isset($userName)){           // 如果用户名为空
                 //将用户名写入临时表
                 $table="templates";
                 $k=Array("key","value");
-                $v=Array("regName",$userName);
+                $v=Array("regName",$email);
                 Db::dbInsertOne($table,$k,$v);
                 //发送验证电子邮件
                 $x=base64_encode($userName);
@@ -46,11 +46,11 @@ if(!isset($userName)){           // 如果用户名为空
                 $z=base64_encode($PassWd);
                 $url = "tips.xiaoaix.cn/controllers/CallEmialUrlController.php?x=".$x."&y=".$y."&z=".$z;
                 //******************** 邮件配置信息 ********************************
-                $smtpserver = "smtp.163.com";//SMTP服务器
-                $smtpserverport =25;//SMTP服务器端口
-                $smtpusermail = "xiaotingyizhan@163.com";//SMTP服务器的用户邮箱
-                $smtpemailto =$email;//发送给谁
-                $smtpuser = "xiaotingyizhan";//SMTP服务器的用户帐号
+                $smtpserver = "smtp.ym.163.com";//SMTP服务器
+                $smtpserverport = 25;//SMTP服务器端口
+                $smtpusermail = "admin@xiaoaix.cn";//SMTP服务器的用户邮箱
+                $smtpemailto = $email;//发送给谁
+                $smtpuser = "admin@xiaoaix.cn";//SMTP服务器的用户帐号
                 $smtppass = "Wxiao741895623&";//SMTP服务器的用户密码
                 $mailtitle = "TIPS 需要验证你的邮箱地址";//邮件主题
                 $mailcontent = "<a href='{$url}'>请点击链接:验证邮箱</a><br />如果链接无法访问，请复制如下路径粘贴在浏览器的地址栏中，进行访问：{$url}";//邮件内容
