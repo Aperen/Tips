@@ -37,4 +37,5 @@ if($isEmail){
 	$v=Array($ret1['id'],$datetime,$tipContent);
 	$ret=Db::dbInsertOne($t,$k,$v);
 }
+echo 1;
 ?>

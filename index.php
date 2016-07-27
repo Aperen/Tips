@@ -101,9 +101,9 @@ if(isset($_SESSION["userName"])){
 					}
 				}
 			}else{
-				echo "<div class='row box'>";
-				echo 	"<div class='col-lg-8'>";
-				echo 		"<div>请您先登录哦~</div>";
+				echo "<div class='row'>";
+				echo 	"<div class='col-lg-12'>";
+				echo 		"<h1 style='font-size:10rem;color:#f0f8ff;'>我们可以做的更好的</h1>";
 				echo 	"</div>";
 				echo "</div>";
 			}
@@ -239,7 +239,7 @@ if(isset($_SESSION["userName"])){
 		  </div>
 		  <div class="modal-body">
 			<p>作者:苏近之</p>
-			<p>系统版本:V0.3</p>
+			<p>系统版本:V0.4.2</p>
 			<p>GitHub:www.iyii.vip</p>
 			<p>邮箱:xiaotingyizhan@163.com</p>
 			<p>手机:18969143101</p>
