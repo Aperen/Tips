@@ -2,6 +2,6 @@
 
 array(
     [
-        version=>0.4,           //系统版本
+        version=>0.5,           //系统版本
     ]
 );

@@ -6,16 +6,16 @@
  * 描述：数据库操作类
  */
 class Db{
-/*    private static $dbHost="localhost";           //数据库地址
+    private static $dbHost="localhost";           //数据库地址
     private static $dbName="tips";                 //数据库名
     private static $dbUser="root";                 //数据库用户
     private static $dbPw="";                       //数据库密码
-    private static $dbPort="3306";                 //数据库端口*/
-    private static $dbHost=SAE_MYSQL_HOST_M;           //SAE数据库地址
+    private static $dbPort="3306";                 //数据库端口
+/*    private static $dbHost=SAE_MYSQL_HOST_M;           //SAE数据库地址
     private static $dbName=SAE_MYSQL_DB;                 //SAE数据库名
     private static $dbUser=SAE_MYSQL_USER;                 //SAE数据库用户
     private static $dbPw=SAE_MYSQL_PASS;                       //SAE数据库密码
-    private static $dbPort=SAE_MYSQL_PORT;                 //SAE数据库端口
+    private static $dbPort=SAE_MYSQL_PORT;                 //SAE数据库端口*/
     //数据库连接
     public static function dbConnect(){
         $con = mysqli_connect(Db::$dbHost,Db::$dbUser,DB::$dbPw,Db::$dbName,Db::$dbPort);     //连接数据库
@@ -65,7 +65,7 @@ class Db{
         }
         //去掉末尾的逗号
         $keys=mb_substr($keys,0,strlen($keys)-1);
-        $values=mb_substr($values,0,strlen($values)-1);
+        $values=mb_substr($values,0,mb_strlen($values)-1);
         $sql="INSERT INTO {$table} ({$keys}) VALUES ($values);";    //拼接语句
         $ret=mysqli_query($con,$sql);               //执行插入语句
         return $ret;
