@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Tips</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -34,8 +35,13 @@
 						<ul class="nav navbar-nav">
 							<li class="active"><a onclick="$tips.$byLoginStatusByModal()">添加提醒<span class="sr-only">(current)</span></a></li>
 							<li><a href="#">文章社区</a></li>
-							<li><a href="#">云存储</a></li>
-							<li><a href="#">个人中心</a></li>
+							<?php
+								if(isset($_SESSION['userName'])){				//如果已经登录
+									echo "<li><a href='#'>云存储</a></li>";
+									echo "<li><a href='./admin/admin.php'>个人中心</a></li>";
+								}
+							?>
+
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret"></span></a>
 								<ul class="dropdown-menu">

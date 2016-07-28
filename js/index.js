@@ -1,12 +1,13 @@
 //全局公共常量
 var $objPub ={
 	//控制器常量
-	$baseUrl:"./controllers/",				//基础路径
+	$baseUrl:"./controllers/",				//前台基础路径
 	$loginController:"LoginController.php",	//登录控制器
 	$logoutController:"LogoutController.php",//注销控制器
 	$addTipController:"AddTipController.php",//添加提醒控制器
 	$registController:"RegistController.php",//注册控制器
 	$getSessionController:"GetSessionController.php",	//获取Session
+	$adminBaseUrl:"./admin/controllers/",			//后台基础路径
 };
 
 //用户对象
@@ -202,3 +203,19 @@ var $checkObj={
 	}
 };
 
+//后台管理对象
+var $adminMarge={
+	//向控制器发送注销请求
+	$logout:function(){
+		$type = "POST";
+		$url = $objPub.$baseUrl+$objPub.$logoutController;
+		$msg="";
+		$func = function($data){
+			if($data=2000){
+				$sendMsg.$print("注销成功");
+			}
+			window.location.href="../index.php";				//刷新页面
+		};
+		$sendMsg.$sendAjax($type,$url,$msg,$func);
+	}
+};
