@@ -175,7 +175,7 @@ if(isset($_SESSION["userName"])){
 		  </div>
 		  <div class="modal-body">
 			<p>作者:苏近之</p>
-			<p>系统版本:V0.4.3</p>
+			<p>系统版本:V0.6</p>
 			<p>GitHub:www.iyii.vip</p>
 			<p>邮箱:xiaotingyizhan@163.com</p>
 			<p>手机:18969143101</p>
