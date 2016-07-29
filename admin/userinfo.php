@@ -74,7 +74,7 @@
             </div>
         </div>
 </div>
-
+</div>
 <?php require "../layout/admin.footer.php";   //引入后台底部文件 ?>
 
 

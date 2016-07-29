@@ -26,6 +26,7 @@ var $login = {
 			$url = $objPub.$baseUrl+$objPub.$loginController;				//请求路径
 			$msg = "userName="+this.$userName.val()+"&"+"passWord="+this.$passWd.val();		//请求数据
 			$func =function($data){											//请求的回调函数
+				layer.close($ii);
 				if($data==1000){
 					$('#loginModal').modal('hide');
 					window.location.href="index.php";				//刷新页面
@@ -33,6 +34,7 @@ var $login = {
 					$("#danger").text("用户名和密码不正确！");
 				}
 			};
+			var $ii=layer.load();
 			$sendMsg.$sendAjax("POST",$url,$msg,$func);			//调用消息对象发送 Ajax 请求
 		}else{			//用户名和密码为空
 			$("#danger").text("用户名和密码不能为空！");
@@ -219,3 +221,61 @@ var $adminMarge={
 		$sendMsg.$sendAjax($type,$url,$msg,$func);
 	}
 };
+
+//消息盒子对象
+var $msgBox={
+	$id:"",
+	$isMail:"",
+	//查看消息详情
+	$showMsg:function($id){					//传入 a 标签的 ID
+		$msgId=$("#"+$id).attr("data-num");	//读取提醒记录的 ID
+		$url="./controllers/QueryMsgController.php";
+		$data= "msgId="+$msgId;		//向后台发送记录的 ID
+		var $ii = layer.load();		//开启 loading 弹出层
+		$func=function($data){		//Ajax 回调函数
+			layer.close($ii);	//关闭 loading 弹出层
+			layer.open({		//开启弹出层，显示提醒详情
+				type: 1,
+				title:"提醒详情",
+				area: ['320px', '220px'], //宽高
+				content:"<p style='font-size: 16px;margin:10px'><br>"+
+					"提醒时间:"+$data.date+"<br /><br />"+
+				"提醒内容:"+$data.content+"<br /><br /></p>"
+			});
+		};
+		$sendMsg.$sendAjax("POST",$url,$data,$func);	//向后台发送 Ajax 请求
+	},
+	//删除一条提醒
+	$delMsg:function($id){
+		$delId=$("#"+$id).attr("data-num");
+		$url="./controllers/DelMsgController.php";
+		$data="delId="+$delId;
+		var $ii =layer.load();
+		$func=function($data){
+			layer.close($ii);
+			window.location.href="msgbox.php";
+		};
+		$sendMsg.$sendAjax("POST",$url,$data,$func);	//向后台发送 Ajax 请求
+	},
+	//更新提醒界面数据
+	$updateMsg:function($id){
+		this.$id=$id;
+		$("#updateTipModal").modal();
+	},
+	//向后台请求更新提醒信息
+	$saveMsg:function(){
+		$updateId=$("#"+this.$id).attr("data-num");
+		$date=$("#tipDate");
+		$content=$("#tipMsg");
+		//console.log($updateId+"/"+$date.val()+"/"+$content.val()+"/"+this.$isMail);
+		//向后台发送更新提醒的Ajax请求
+		$url="./controllers/UpdateMsgController.php";
+		$msg = "datetime="+$date.val()+"&"+"tipContent="+$content.val()+"&"+"isEmail="+this.$isMail+"&"+"updateId="+$updateId;	//请求数据
+		$ii= layer.load();			//开启 loading 弹出层
+		$func=function($data){
+			layer.close($ii);		//关闭 loading 弹出层
+			window.location.href="msgbox.php";		//刷新页面
+		};
+		$sendMsg.$sendAjax("POST",$url,$msg,$func);	//发送更新请求
+	}
+}
