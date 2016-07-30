@@ -20,10 +20,6 @@ if(mysqli_affected_rows($con)){		//如果该用户存在
 	//用户名和密码正确,用户名写入会话
 	$_SESSION['userName']=$ret['username'];
 	mysqli_close($con);			//关闭数据库连接
-	//写入日志
-	$log=new Log();				//日志类实例化
-	date_default_timezone_set("Asia/Shanghai");			//设置时区
-	$log->insertLog(date("Y-m-d h:i:sa"),"LoginController",$ret['username']."用户登录成功！");	//插入一条日志
 	echo 1000;
 }else{
 	mysqli_close($con);

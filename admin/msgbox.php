@@ -8,16 +8,16 @@
  */
 require "../layout/admin.header.php";   //引入后台头部文件
 $con=Db::dbConnect();			//数据库连接
-$sql="SELECT tips.tips.id,tips.tips.author,
-  tips.tips.content,tips.tips.date,
-tips.tips.is_mail,tips.task.status
-from tips.user left join tips.tips
-  on tips.user.username= tips.tips.author
-  LEFT join tips.task
-  on tips.user.id = tips.task.user_id
-where tips.user.username='".$_SESSION['userName']."'"
-."GROUP BY tips.tips.id
-ORDER BY tips.tips.date DESC";
+$sql="SELECT tips.id,tips.author,
+  tips.content,tips.date,
+tips.is_mail,task.status
+from user left join tips
+  on user.username= tips.author
+  LEFT join task
+  on user.id = task.user_id
+where user.username='".$_SESSION['userName']."'"
+."GROUP BY tips.id
+ORDER BY tips.date DESC";
 $tipRet=Db::dbQueryAll($con,$sql);
 
 ?>

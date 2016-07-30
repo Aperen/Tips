@@ -1,10 +1,22 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User:季俊潇
+ * Date: 2016/7/29
+ * updateTime: 2016/7/30 10:31
+ * Description:头部布局文件
+ */
+
+//引入路径要注意是个坑，不是以当前文件的相对路径，而是引用当前文件的相对路径
+require "./conf/web.php";
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tips</title>
+	<title><?php echo $config['siteName'] ?></title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/style.css">
 </head>
@@ -27,7 +39,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">Tips</a>
+						<a class="navbar-brand" href="http://tips.xiaoaix.cn"><?php echo $config['siteName'] ?></a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
