@@ -14,7 +14,7 @@ if(!isset($_SESSION['userName'])) {              //如果尚没有登录
 require "../common/func_db.php";            //引入数据库操作类
 $con= Db::dbConnect();
 $sql="SELECT * FROM user WHERE username = '{$userName}'";
-$ret=Db::dbQueryOne($con,$sql);
+$retCurrentUser=Db::dbQueryOne($con,$sql);
 ?>
 
 <!doctype html>

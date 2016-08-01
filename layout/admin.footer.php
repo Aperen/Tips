@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img alt="face" src="<?php echo $ret['face_url']; ?>" width="38px" style="margin:-10px;" class="img-circle">
+                <img alt="face" src="<?php echo $retCurrentUser['face_url']; ?>" width="38px" style="margin:-10px;" class="img-circle">
             </a>
         </div>
 
@@ -39,7 +39,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文章管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">文章列表</a></li>
-                        <li><a href="#">新增文章</a></li>
+                        <li><a href="article.php">新增文章</a></li>
                         <li><a href="#">分类管理</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">多媒体管理</a></li>

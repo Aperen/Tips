@@ -278,4 +278,51 @@ var $msgBox={
 		};
 		$sendMsg.$sendAjax("POST",$url,$msg,$func);	//发送更新请求
 	}
+};
+
+//文章对象
+var $article={
+	//显示分类弹窗
+	$showAddCategory:function(){
+		layer.open({		//开启弹出层，显示提醒详情
+			type: 5,			//弹出层类别
+			title:"添加分类",					//弹出层标题
+			area: ['350px', '220px'], //宽高
+			content:"<br><br>"+					//弹出层内容
+			"<div class='row'><div class='col-lg-10  col-lg-offset-1'><input type='text' class='form-control' id='addCategoryName' placeholder='新增分类名称'/></div></div>" +
+			"<br><div class='row'><div class='col-lg-10 col-lg-offset-1'><button class='btn btn-primary' style='width:100%' onclick='$article.$addCategory();'>确定</button></div></div>"
+		});
+	},
+	//添加一个分类
+	$addCategory:function(){
+		//获取新增分类名
+		$addCategoryName=$("#addCategoryName");
+		//获取用户ID
+		$currentUserId=$("#userId");
+		//发送请求
+		$url="./controllers/AddCategoryController.php";			//请求路径
+		$data="addCategoryName="+$addCategoryName.val()+"&currentUserId="+$currentUserId.val();
+		var $ii=layer.load();	//开启 Loading 弹出层
+		$func=function(){
+			//将分类名写入界面中的分类列表
+			$("<option />").appendTo("#selectCategory").text($addCategoryName.val());
+			layer.closeAll();		//关闭所有弹出层
+		};
+		$sendMsg.$sendAjax("POST",$url,$data,$func);	//向后台发送请求
+		console.log($addCategoryName.val());
+	},
+	//添加一篇文章
+	$addArticle:function(){
+		var $ii= layer.load();		//开启Loading弹出层
+		$url="./controllers/AddArticleController.php";		//新增文章控制器地址
+		$data="categoryName="+$("#selectCategory option:selected").text()
+			+"&auth="+$("#selectAuth option:selected").text()
+			+"&articleTitle="+$("#articleTitle").val()		//向后台发送的数据
+			+"&articleContent="+$("#articleContent").val();
+		$func=function($data){
+			layer.close($ii);			//关闭Loading弹出层
+		};
+		//向后台发送一个Ajax请求，增加一篇文章
+		$sendMsg.$sendAjax("POST",$url,$data,$func);
+	},
 }

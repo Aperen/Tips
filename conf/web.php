@@ -8,7 +8,7 @@
  */
 
 $config=Array(
-    "siteName"=>"TIPS",          //站点名称
+    "siteName"=>"TIPS社区",          //站点名称
     "version"=>'VO.6',           //系统版本
 );
 return $config;         //返回配置数组
