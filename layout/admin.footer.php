@@ -30,19 +30,19 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户中心<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="userinfo.php">用户信息</a></li>
-                        <li><a href="#">资源报表</a></li>
-                        <li><a href="#">平台设置</a></li>
+                        <li><a href="userinfo.php">用户信息（开发中）</a></li>
+                        <li><a href="#">资源报表（开发中）</a></li>
+                        <li><a href="#">平台设置（开发中）</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文章管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">文章列表</a></li>
+                        <li><a href="articlemarge.php">文章管理</a></li>
                         <li><a href="article.php">新增文章</a></li>
-                        <li><a href="#">分类管理</a></li>
+                        <li><a href="#">分类管理(开发中)</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">多媒体管理</a></li>
+                        <li><a href="#">多媒体管理(开发中)</a></li>
                     </ul>
                 </li>
             </ul>

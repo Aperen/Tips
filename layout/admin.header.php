@@ -15,6 +15,7 @@ require "../common/func_db.php";            //引入数据库操作类
 $con= Db::dbConnect();
 $sql="SELECT * FROM user WHERE username = '{$userName}'";
 $retCurrentUser=Db::dbQueryOne($con,$sql);
+
 ?>
 
 <!doctype html>

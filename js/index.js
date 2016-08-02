@@ -321,8 +321,46 @@ var $article={
 			+"&articleContent="+$("#articleContent").val();
 		$func=function($data){
 			layer.close($ii);			//关闭Loading弹出层
+			window.location.href='./articlemarge.php';
 		};
 		//向后台发送一个Ajax请求，增加一篇文章
 		$sendMsg.$sendAjax("POST",$url,$data,$func);
 	},
+	//编辑一篇文章
+	$updateArticle:function($id){
+		$updateId=$('#'+$id).attr('data-num');			//获取编辑文章的ID
+		window.location.href='./updatearticle.php?updateId='+$updateId;	//跳转到编辑页面并传送ID
+	},
+	//保存文章更新
+	$saveArticleUpdate:function($id){
+		var $ii= layer.load();		//开启Loading弹出层
+		$url="./controllers/UpdateArticleController.php";		//新增文章控制器地址
+		$data="updateId="+$id
+			+"&categoryName="+$("#selectCategory option:selected").text()
+			+"&auth="+$("#selectAuth option:selected").text()
+			+"&articleTitle="+$("#articleTitle").val()		//向后台发送的数据
+			+"&articleContent="+$("#articleContent").val();
+		$func=function($data){
+			layer.close($ii);			//关闭Loading弹出层
+			window.location.href='./articlemarge.php';
+		};
+		//向后台发送一个Ajax请求，增加一篇文章
+		$sendMsg.$sendAjax("POST",$url,$data,$func);
+	},
+	//删除一篇文章
+	$delArticle:function($id){
+		$delId=$("#"+$id).attr("data-num");		//获取删除文章的ID
+		$url="./controllers/DelArticleController.php";		//删除文章控制器的路径
+		$data="delId="+$delId;			//传送的文章ID
+		var $ii= layer.load();			//显示 Loading　弹出层
+		$func=function ($data) {		//Ajax 回调函数
+			layer.close($ii);			//关闭 Loading 弹出层
+			window.location.href="./articlemarge.php";			//刷新页面
+		};
+		$sendMsg.$sendAjax("POST",$url,$data,$func);		//向后台发送Ajax请求，删除文章
+	},
+	//文章列表
+	$listArticle:function(){
+		console.log("OK");
+	}
 }
