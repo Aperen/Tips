@@ -56,6 +56,7 @@ if(isset($_SESSION["userName"])){
 						<ul class="nav navbar-nav">
 							<li class="active"><a onclick="$tips.$byLoginStatusByModal()">添加提醒<span class="sr-only">(current)</span></a></li>
 							<li><a href="article_list.php">文章社区</a></li>
+							<li><a href="news_list.php">实时新闻</a></li>
 							<?php
 								if(isset($_SESSION['userName'])){				//如果已经登录
 									echo "<li><a href='#'>网盘(开发中)</a></li>";

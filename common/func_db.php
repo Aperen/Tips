@@ -77,6 +77,15 @@ class Db{
         $ret = mysqli_query($con,$sql);         //执行语句
         return $ret;            //返回结果
     }
+    //清空数据表
+    public static function dbDeleteAll($table){
+        //建立数据库连接
+        $con=self::dbConnect();
+        //定义SQL
+        $sql="TRUNCATE {$table}";
+        //根据表名清空数据表
+        $ret=mysqli_query($con,$sql);
+    }
     //根据ID更新一条记录
     public static function dbUpdate($sql){
         $con = self::dbConnect();       //连接数据库

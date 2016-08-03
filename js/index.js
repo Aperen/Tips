@@ -359,8 +359,35 @@ var $article={
 		};
 		$sendMsg.$sendAjax("POST",$url,$data,$func);		//向后台发送Ajax请求，删除文章
 	},
-	//文章列表
-	$listArticle:function(){
-		console.log("OK");
+	//上一篇新闻
+	$upNew:function(){
+		$newId=$("#idNew");
+		if($newId.val()>1){
+			$upId=$newId.val()-1;
+			window.location.href="news_details.php?id="+$upId;
+		}else{
+			layer.open({		//开启弹出层，显示提醒详情
+				type: 1,			//弹出层类别
+				title:"我笑笑不说话",					//弹出层标题
+				area: ['250px', '120px'], //宽高
+				content:"<br>&nbsp;&nbsp;已经是第一篇了"
+			});
+		}
+	},
+	$downNew:function(){
+		$newId=$("#idNew");			//当前新闻ID
+		$newCount=$("#newCount");		//当前新闻总数
+		//如果当前新闻ID 小于 当前新闻总数
+		if(parseInt($newId.val())<parseInt($newCount.val())){
+			$downId=parseInt($newId.val())+1;						//下一篇文章ID加 1
+			window.location.href="news_details.php?id="+$downId;	//跳转到下一篇文章
+		}else{				//如果当前新闻ID 大于等于 当前新闻总数
+			layer.open({		//开启弹出层，显示提醒详情
+				type: 1,			//弹出层类别
+				title:"我笑笑不说话",					//弹出层标题
+				area: ['250px', '120px'], //宽高
+				content:"<br>&nbsp;&nbsp;"+"已经是最后一篇了哦~"
+			});
+		}
 	}
 }

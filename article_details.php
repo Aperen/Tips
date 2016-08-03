@@ -11,7 +11,7 @@ require "./layout/header.php"; //引入头部文件
 
 require "./common/Parsedown.php";       //引入 Markdown 语法转换类
 $id=$_GET['id'];        //获取文章ID
-$sqlArticle="SELECT * FROM article WHERE id={$id} ORDER BY id DESC";
+$sqlArticle="SELECT * FROM article WHERE id={$id}";
 $retArticle = Db::dbQueryOne($con,$sqlArticle);     //公开的文章的结果集
 $md= new Parsedown();               //实例化 Parsedown 类
 $articleContent=$md->text($retArticle['content']);      //将文章内容转化为HTML
@@ -30,5 +30,6 @@ $articleContent=$md->text($retArticle['content']);      //将文章内容转化�
         </div>
     </div>
 </div>
+
     <br><br><br>
 <?php require "./layout/footer.php"; //引入底部文件 ?>
