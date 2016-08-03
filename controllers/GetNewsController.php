@@ -13,10 +13,10 @@ $str = file_get_contents('http://api.sina.cn/sinago/list.json?channel=news_touti
 $array = json_decode($str);
 $t='news';      //定义写入的数据表
 Db::dbDeleteAll($t);
-$k=Array('title','sour','intro','article_date');        //定义写入数据表的字段
+$k=Array('title','sour','intro','article_date','kpic');        //定义写入数据表的字段
 $article=$array->data->list;            //新闻数组
 //遍历新闻数据写入数据表
 for($i=0;$i<count($article);$i++){
-    $v=Array($article[$i]->title,$article[$i]->source,$article[$i]->intro,$article[$i]->articlePubDate);
+    $v=Array($article[$i]->title,$article[$i]->source,$article[$i]->intro,$article[$i]->articlePubDate,$article[$i]->kpic);
     $ret=Db::dbInsertOne($t,$k,$v);         //写入数据库
 }
