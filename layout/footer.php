@@ -1,4 +1,4 @@
-<div id="footer" class="container col-lg-offset-1">
+<div id="footer" class="container visible-md-block visible-lg-inline col-lg-offset-1">
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="navbar-inner navbar-content-center">
             <p class="text-muted credit" style="padding: 10px;">
