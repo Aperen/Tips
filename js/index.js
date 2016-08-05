@@ -17,6 +17,7 @@ var $login = {
 	$regEmail:$("#regEmail"),				//获取注册邮箱
 	$regUserName:$("#regUsername"),		//获取注册用户名
 	$regPassword:$("#regPassword"),		//获取注册密码
+	$regCaptchaCode:$("#verification"),	//获取注册验证码
 
 	//向后台发送登录请求
 	$sendLoginInfo:function(){
@@ -56,11 +57,11 @@ var $login = {
 	//向后台发出注册请求
 	$sendRegistInfo:function(){
 		//调用校验对象，校验元素存在
-		$flag=$checkObj.$isSet(new Array(this.$regEmail.val(),this.$regUserName.val(),this.$regPassword.val()));
+		$flag=$checkObj.$isSet(new Array(this.$regEmail.val(),this.$regUserName.val(),this.$regPassword.val()),this.$regCaptchaCode.val());
 		if($flag){				//如果元素存在
 			$type="POST";			//请求类型
 			$url=$objPub.$baseUrl+$objPub.$registController;		//请求路径
-			$msg = "regEmail="+this.$regEmail.val()+"&"+"regUserName="+this.$regUserName.val()+"&"+"regPassword="+this.$regPassword.val();		//请求数据
+			$msg = "regEmail="+this.$regEmail.val()+"&"+"regUserName="+this.$regUserName.val()+"&"+"regPassword="+this.$regPassword.val()+"&regCaptchaCode="+this.$regCaptchaCode.val();		//请求数据
 			$func =function($date){											//请求的回调函数
 				$errInfo=$sendMsg.$sendError($date);
 				if($errInfo.$errorNo==1005){
@@ -182,6 +183,12 @@ var $sendMsg ={
 				break;
 			case 1006:
 				$errInfo.$errorInfo="用户名已经被注册";
+				break;
+			case 1007:
+				$errInfo.$errorInfo="验证码不能为空";
+				break;
+			case 1008:
+				$errInfo.$errorInfo="验证码不正确";
 				break;
 			default:
 				$errInfo.$errorInfo="未知错误，请联系网站管理员";

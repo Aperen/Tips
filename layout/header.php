@@ -148,6 +148,13 @@ if(isset($_SESSION["userName"])){
 						<label for="InputPassword">密码</label>
 						<input type="password" class="form-control" id="regPassword" placeholder="密码，请设置高强度密码">
 					</div>
+					<div class="form-group">
+						<label for="verification">验证码</label>
+						<div class="input-group">
+							<span class="input-group-addon"><img src="./Controllers/GetCaptchaCode.php" alt=""  onclick="this.src='./Controllers/GetCaptchaCode.php?'+Math.random();"></span>
+							<input type="text" class="form-control" id="verification" aria-describedby="inputGroupSuccess1Status">
+						</div>
+					</div>
 					<p id="errorInfo"></p>				<!--输出错误信息-->
 				</form>
 			</div>
