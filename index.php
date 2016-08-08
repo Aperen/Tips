@@ -15,13 +15,13 @@ require "./layout/header.php"; //引入头部文件
 	<div class="container">
 		<?php 
 			if(!$flag){				//如果已经登录
-				for($i=0;$i<count($ret);$i++){		//遍历记录
-					if($ret[$i]['id']){			//如果存在记录
-						$content=$ret[$i]['content'];
+				for($i=0;$i<count($retTips);$i++){		//遍历记录
+					if($retTips[$i]['id']){			//如果存在记录
+						$content=$retTips[$i]['content'];
 						echo "<div class='row box'>";
 						echo 	"<div class='col-lg-12'>";
-						echo 		"<h4>提醒日期:{$ret[$i]['date']}</h4>";
-						echo		"<p>提醒内容:".$ret[$i]['content']."</p>";
+						echo 		"<h4>提醒日期:{$retTips[$i]['date']}</h4>";
+						echo		"<p>提醒内容:".$retTips[$i]['content']."</p>";
 						echo	"</div>";
 						echo "</div>";
 						echo "<br /><br />";

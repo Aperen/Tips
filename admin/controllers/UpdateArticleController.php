@@ -33,7 +33,8 @@ $sql="UPDATE article ".
   " content='{$articleContent}', ".
   " author={$authorId}, ".
   " auth ={$auth}, ".
-    "category_id={$categoryId} ".
+    "category_id={$categoryId}, ".
+    "update_date='".date('Y-m-d H:i:s')."' ".
     "WHERE id={$id}";
 $retUpdate=Db::dbUpdate($sql);
 echo 1;

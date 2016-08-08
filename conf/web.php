@@ -9,7 +9,7 @@
 
 $config=Array(
     "siteName"=>"TIPS社区",          //站点名称
-    "version"=>'VO.8.2',           //系统版本
+    "version"=>'VO.8.3',           //系统版本
     "smtpServer"=>'smtp.163.com',       //SMTP 服务器
     "smtpPost"=>25,             //SMTP 端口
     "emailAddress"=>'xiaotingyizhan@163.com',    //发件人邮箱

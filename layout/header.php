@@ -12,8 +12,12 @@ require "./conf/web.php";
 require ("./common/func_db.php");			//引入数据库类
 $con=Db::dbConnect();
 if(isset($_SESSION["userName"])){
+	//查询出提登录用户提醒集合
 	$sql="SELECT * FROM tips  WHERE author='{$_SESSION["userName"]}' ORDER BY DATE DESC Limit 0,5";
-	$ret=Db::dbQueryAll($con,$sql);
+	$retTips=Db::dbQueryAll($con,$sql);
+	//查出登录用户记录集合
+	$sql="SELECT * FROM user WHERE username='{$_SESSION["userName"]}'";
+	$retUser=Db::dbQueryAll($con,$sql);
 	$flag=false;
 }else{
 	$flag=true;
@@ -151,7 +155,7 @@ if(isset($_SESSION["userName"])){
 					<div class="form-group">
 						<label for="verification">验证码</label>
 						<div class="input-group">
-							<span class="input-group-addon"><img src="./Controllers/GetCaptchaCode.php" alt=""  onclick="this.src='./Controllers/GetCaptchaCode.php?'+Math.random();"></span>
+							<span class="input-group-addon"><img src="./Controllers/GetCaptchaCode.php" alt=""  onclick="this.src='./controllers/GetCaptchaCode.php?'+Math.random();"></span>
 							<input type="text" class="form-control" id="verification" aria-describedby="inputGroupSuccess1Status">
 						</div>
 					</div>

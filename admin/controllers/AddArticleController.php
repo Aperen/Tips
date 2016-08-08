@@ -28,7 +28,7 @@ $categoryName=$_POST['categoryName'];     //从前台获取文章分类名称
 $retCategory=Db::dbQueryOne($con,"SELECT id FROM category WHERE name='{$categoryName}'");
 $categoryId=$retCategory['id'];         //获取文章分类ID
 $t="article";
-$k=Array('title','content','author','auth','category_id');
-$v=Array($articleTitle,$articleContent,$authorId,$auth,$categoryId);
+$k=Array('title','content','author','auth','category_id','post_date');
+$v=Array($articleTitle,$articleContent,$authorId,$auth,$categoryId,date("Y-m-d H:i:s"));
 $insertRet=Db::dbInsertOne($t,$k,$v);       //将文章插入数据库
-echo 1;
+echo $sql;
